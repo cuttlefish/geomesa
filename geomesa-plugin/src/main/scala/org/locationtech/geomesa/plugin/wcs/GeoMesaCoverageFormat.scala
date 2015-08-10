@@ -40,15 +40,10 @@ class GeoMesaCoverageFormat extends AbstractGridFormat() with Format {
 
   override def accepts(source: AnyRef, hints: Hints) = testURL(source)
 
-  private def testURL(source: AnyRef) = {
+  private def testURL(source: AnyRef) = source match{
     
-    try{
-      getReader(source, null) != null
-    }
-    catch
-    {
-      case e: Exception => false      
-    }
+    case str: String => str.startsWith("accumulo://")
+    case _ => false
     
   }
   

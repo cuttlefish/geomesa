@@ -39,8 +39,16 @@ class CoverageFormat extends AbstractGridFormat {
     case path: String => new CoverageReader(path)
     case unk => throw new Exception(s"unexpected data type for reader source: ${Option(unk).map(_.getClass.getName).getOrElse("null")}")
   }
-  override def accepts(input: AnyRef) = true
-  override def accepts(source: AnyRef, hints: Hints) = true
+  override def accepts(input: AnyRef) = testURL(input)
+
+  override def accepts(source: AnyRef, hints: Hints) = testURL(source)
+
+  private def testURL(source: AnyRef) = source match{
+    
+    case str: String => str.startsWith("accumulo://")
+    case _ => false
+    
+  }
   override def getWriter(destination: AnyRef) = throw new UnsupportedOperationException("Unsupported")
   override def getWriter(destination: AnyRef, hints: Hints) = throw new UnsupportedOperationException("Unsupported")
   override def getDefaultImageIOWriteParameters = throw new UnsupportedOperationException("Unsupported")
