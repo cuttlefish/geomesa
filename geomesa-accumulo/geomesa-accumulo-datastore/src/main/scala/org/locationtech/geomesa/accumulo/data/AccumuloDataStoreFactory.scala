@@ -11,6 +11,9 @@ package org.locationtech.geomesa.accumulo.data
 
 import java.io.Serializable
 import java.util.{Map => JMap}
+import scala.concurrent._
+import scala.concurrent.duration._
+import ExecutionContext.Implicits.global
 
 import org.apache.accumulo.core.client.mock.{MockConnector, MockInstance}
 import org.apache.accumulo.core.client.security.tokens.{AuthenticationToken, PasswordToken}
@@ -164,7 +167,14 @@ object AccumuloDataStoreFactory {
     if(useMock) {
       (new MockInstance(instance).getConnector(user, authToken), authToken)
     } else {
-      (new ZooKeeperInstance(instance, zookeepers).getConnector(user, authToken), authToken)
+      var zkInstance = try {
+        val zki = future { new ZooKeeperInstance(instance, zookeepers).getConnector(user, authToken) }
+        Await.result(zki, 2 seconds)
+      }
+      catch {
+        case e :Exception => new MockInstance(instance).getConnector(user, authToken)
+      }
+      (zkInstance, authToken)
     }
   }
 
