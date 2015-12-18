@@ -155,6 +155,17 @@
                 <test.fork.reuse>false</test.fork.reuse>
             </properties>
         </profile>
+
+        <profile>
+            <!-- only what's needed for the geoserver extension -->
+            <id>geoserver-ext</id>
+            <modules>
+                <module>geomesa-plugin</module>
+                <module>geomesa-utils</module>
+                <module>geomesa-raster</module>
+                <module>geomesa-accumulo</module>
+            </modules>
+        </profile>
     </profiles>
 
     <distributionManagement>
