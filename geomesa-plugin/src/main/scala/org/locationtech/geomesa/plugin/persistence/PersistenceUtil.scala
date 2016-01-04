@@ -14,4 +14,4 @@ import org.locationtech.geomesa.utils.cache.FilePersistence
 import org.geoserver.config.GeoServerDataDirectory
 
 object PersistenceUtil extends
-  FilePersistence(new GeoServerDataDirectory(new File("geoserver_data")).findOrCreateDir("geomesa-config"), "geomesa-config.properties")
+  FilePersistence(GeoserverDataDirectory.findCreateConfigDir("geomesa-config"), "geomesa-config.properties")
