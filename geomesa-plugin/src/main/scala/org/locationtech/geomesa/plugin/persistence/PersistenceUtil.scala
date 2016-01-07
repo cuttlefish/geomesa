@@ -13,5 +13,12 @@ import java.io.File
 import org.locationtech.geomesa.utils.cache.FilePersistence
 import org.geoserver.config.GeoServerDataDirectory
 
-object PersistenceUtil extends
-  FilePersistence(new GeoServerDataDirectory(new File("geoserver_data")).findOrCreateDir("geomesa-config"), "geomesa-config.properties")
+object PersistenceUtil {
+  var dataDir:Option[GeoServerDataDirectory] = None
+  lazy val pu = new FilePersistence(dataDir.get.findOrCreateDir("geomesa-config"), "geomesa-config.properties")
+
+  def read = pu.read _
+  def persistAll = pu.persistAll _
+  def setDataDir(dd: GeoServerDataDirectory) = { dataDir = Some(dd) }
+  def getInstance() = this // used by Spring
+}
