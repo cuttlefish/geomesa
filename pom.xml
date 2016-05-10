@@ -83,6 +83,9 @@
         <dist.geoserver.lib>geoserver/WEB-INF/lib</dist.geoserver.lib>
         <dist.dev>dev</dist.dev>
 
+        <!-- build/packaging plugin properties -->
+        <mvn.shade.plugin.version>2.4.3</mvn.shade.plugin.version>
+
         <!-- testing properties -->
         <maven.test.jvmargs>-Duser.timezone=UTC -Xms1g -Xmx8g -XX:-UseGCOverheadLimit -Djava.net.preferIPv4Stack=true -Djava.awt.headless=true</maven.test.jvmargs>
         <test.fork.count>1</test.fork.count>
@@ -1920,7 +1923,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>${mvn.shade.plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>net.alchim31.maven</groupId>
