@@ -54,7 +54,7 @@
         <scala.xml.version>1.0.5</scala.xml.version>
         <scala.parsers.version>1.0.4</scala.parsers.version>
         <geoserver.version>2.9</geoserver.version>
-        <gt.version>15</gt.version>
+        <gt.version>15.0</gt.version>
         <jaiext.version>1.0.8</jaiext.version>
         <imageio-ext.version>1.1.13</imageio-ext.version>
         <jts.version>1.13</jts.version>
