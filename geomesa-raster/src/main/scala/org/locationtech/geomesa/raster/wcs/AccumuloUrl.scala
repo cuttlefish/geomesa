@@ -44,6 +44,8 @@ object AccumuloUrl {
         .toString()
   }
 
+  def isAccumuloUrl(s: String): Boolean = s.startsWith("accumulo://")
+
   private def toOption(s: String) = Option(s).filterNot(_.isEmpty)
 }
 
