@@ -41,9 +41,16 @@ class GeoMesaCoverageFormat extends AbstractGridFormat with Format {
     }
   }
 
-  override def accepts(input: AnyRef) = true
+  override def accepts(input: AnyRef) = testUrl(input)
 
-  override def accepts(source: AnyRef, hints: Hints) = true
+  override def accepts(source: AnyRef, hints: Hints) = testUrl(source)
+
+  private def testUrl(source: AnyRef) = {
+    source match {
+      case s: String => AccumuloUrl.isAccumuloUrl(s)
+      case _ => false
+    }
+  }
 
   override def getWriter(destination: AnyRef) = throw new UnsupportedOperationException("Unsupported")
 
